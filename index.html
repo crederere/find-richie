@@ -191,14 +191,15 @@
     var form = document.getElementById('apply');
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      if (form.website.value) return;
-      var name = form.name.value.trim(), phone = form.phone.value.trim(), area = form.area.value.trim();
+      var f = function (n) { return form.elements.namedItem(n).value.trim(); };
+      if (f('website')) return;
+      var name = f('name'), phone = f('phone'), area = f('area');
       if (!name || !phone || !area) { toast('이름, 연락처, 사는 곳은 꼭 적어주세요'); return; }
       var d = new URLSearchParams();
       d.append('entry.2058202729', name);
       d.append('entry.1413101431', phone);
       d.append('entry.1597722231', area);
-      d.append('entry.1958692996', form.msg.value.trim());
+      d.append('entry.1958692996', f('msg'));
       var btn = form.querySelector('button[type=submit]');
       btn.disabled = true; btn.textContent = '보내는 중...';
       fetch('https://docs.google.com/forms/d/e/1FAIpQLSf8by772proWvilSvuwEY11vINReJtwxwo3_QlaQ0Nx015NZA/formResponse', { method: 'POST', mode: 'no-cors', body: d })
