@@ -64,7 +64,7 @@
 
   <div class="date">10월 22일 수정</div>
   <h1>리치 새 가족 찾아요</h1>
-  <p class="sub">입양이나 1년 이상 임보 가능하신 분 찾고 있어요.</p>
+  <p class="sub">사람이랑 강아지 좋아하고 거의 안 짖는 2살 남자아이예요.<br>입양이나 1년 이상 임보 가능하신 분 찾고 있어요.</p>
 
   <dl class="props">
     <div><dt>나이</dt><dd>2살 (추정)</dd></div>
@@ -93,6 +93,12 @@
     <li>사진 찍으면 거의 혀 내밀고 웃고 있어요 ㅎㅎ</li>
   </ul>
 
+  <h2>영상</h2>
+  <div class="videos">
+    <figure><video src="v/run_0628.mp4" poster="v/run_0628.jpg" controls playsinline preload="none" width="576" height="1024"></video><figcaption><b>6월</b>잔디밭에서 뛰어오는 중</figcaption></figure>
+    <figure><video src="v/walk_1005.mp4" poster="v/walk_1005.jpg" controls playsinline preload="none" width="576" height="1024"></video><figcaption><b>10월</b>밤 산책</figcaption></figure>
+  </div>
+
   <h2>사진</h2>
   <p class="hint">누르면 크게 보여요.</p>
   <div class="album">
@@ -110,11 +116,6 @@
     <figure><img src="p/261011_1745.jpg" alt="공원의 리치" loading="lazy" width="563" height="1000"><figcaption><b>10월</b>공원에서</figcaption></figure>
   </div>
 
-  <h2>영상</h2>
-  <div class="videos">
-    <figure><video src="v/run_0628.mp4" poster="v/run_0628.jpg" controls playsinline preload="none" width="576" height="1024"></video><figcaption><b>6월</b>잔디밭에서 뛰어오는 중</figcaption></figure>
-    <figure><video src="v/walk_1005.mp4" poster="v/walk_1005.jpg" controls playsinline preload="none" width="576" height="1024"></video><figcaption><b>10월</b>밤 산책</figcaption></figure>
-  </div>
 
   <h2>이런 분이면 좋겠어요</h2>
   <ul>
@@ -146,7 +147,11 @@
 <script>
   (function () {
     var num = '010-2878-6449';
-    var body = encodeURIComponent('안녕하세요, 리치 보고 연락드려요.');
+    var body = encodeURIComponent('안녕하세요, 리치 보고 연락드려요.
+사는 곳:
+집 형태:
+강아지 키워본 경험:
+입양 / 임보(기간):');
     var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     document.querySelectorAll('.js-sms').forEach(function (a) { a.href = 'sms:' + num + (isIOS ? '&' : '?') + 'body=' + body; });
     function toast(t) { var el = document.getElementById('toast'); el.textContent = t; el.classList.add('on'); setTimeout(function () { el.classList.remove('on'); }, 1600); }
