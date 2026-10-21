@@ -51,6 +51,19 @@
   .btns{display:flex;gap:8px;margin-top:16px}
   .btn{flex:1;display:flex;align-items:center;justify-content:center;height:46px;border-radius:8px;border:1px solid #d9d9d9;background:#fff;font:inherit;font-size:15.5px;font-weight:600;text-decoration:none;color:#2a2a2a;cursor:pointer}
   .btn.dark{background:#2a2a2a;border-color:#2a2a2a;color:#fff}
+  .apply{margin-top:14px;border:1px solid #e6e6e6;border-radius:10px;padding:18px}
+  .apply h3{font-size:16.5px;margin-bottom:4px}
+  .apply .note{color:#777;font-size:14.5px;margin-bottom:12px}
+  .apply label{display:block;font-size:14.5px;color:#555;margin-top:12px}
+  .apply label span{color:#aaa}
+  .apply input,.apply textarea{display:block;width:100%;margin-top:5px;padding:11px 12px;border:1px solid #d9d9d9;border-radius:8px;font:inherit;font-size:16px;color:#2a2a2a;background:#fff}
+  .apply textarea{resize:vertical;min-height:96px;line-height:1.6}
+  .apply input:focus,.apply textarea:focus{outline:none;border-color:#2a2a2a}
+  .apply .btn{width:100%;margin-top:16px}
+  .apply .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+  .apply .done{display:none;margin-top:12px;color:#2a2a2a;font-weight:600}
+  .apply.sent .done{display:block}
+  .apply.sent .fields{display:none}
   .lb{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:20;cursor:zoom-out}
   .lb.on{display:flex}
   .lb img{max-width:100%;max-height:100%;object-fit:contain}
@@ -72,7 +85,7 @@
     <div><dt>몸무게</dt><dd>15kg 정도</dd></div>
     <div><dt>지역</dt><dd>서울 동작구</dd></div>
     <div><dt>기한</dt><dd>10월 25일까지</dd></div>
-    <div><dt>연락</dt><dd><a class="js-sms" href="sms:010-2878-6449">010-2878-6449</a> (문자 주세요)</dd></div>
+    <div><dt>연락</dt><dd><a class="js-sms" href="sms:010-2878-6449">010-2878-6449</a> 문자, 또는 <a href="#apply">아래에 남기기</a></dd></div>
   </dl>
 
   <div class="intro">
@@ -132,13 +145,27 @@
   <h2>연락</h2>
   <div class="contact">
     <a class="num js-sms" href="sms:010-2878-6449">010-2878-6449</a>
-    <p>문자로 남겨주세요. 사시는 지역, 집 형태, 강아지 키워보신 적 있는지, 입양인지 임보인지 같이 적어주시면 좋아요.</p>
+    <p>문자 주시거나, 아래에 이름이랑 연락처, 사는 곳 남겨주세요. 확인하고 연락드릴게요.</p>
     <p>얘기 나눠보고 원하시면 직접 만나서 리치 보고 정하셔도 돼요.</p>
     <div class="btns">
       <a class="btn dark js-sms" href="sms:010-2878-6449">문자 보내기</a>
       <button class="btn js-copy" type="button">번호 복사</button>
     </div>
   </div>
+
+  <form class="apply" id="apply" novalidate>
+    <h3>여기 남기셔도 돼요</h3>
+    <p class="note">남겨주시면 제가 연락드릴게요.</p>
+    <div class="fields">
+      <label>이름<input name="name" required maxlength="30" autocomplete="name"></label>
+      <label>연락처<input name="phone" required maxlength="30" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000"></label>
+      <label>사는 곳<input name="area" required maxlength="40" placeholder="예: 서울 관악구"></label>
+      <label>하고 싶은 말 <span>(선택)</span><textarea name="msg" maxlength="1000" placeholder="입양인지 임보인지, 집 형태, 강아지 키워본 경험 같은 거 적어주시면 좋아요."></textarea></label>
+      <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn dark" type="submit">남기기</button>
+    </div>
+    <p class="done">남겨주셔서 감사해요. 확인하고 연락드릴게요.</p>
+  </form>
 </main>
 
 <div class="lb" id="lb"><img alt=""></div>
@@ -160,6 +187,23 @@
         if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(num).then(function () { toast('번호 복사했어요'); }, function () { prompt('복사해서 쓰세요', num); }); }
         else { prompt('복사해서 쓰세요', num); }
       });
+    });
+    var form = document.getElementById('apply');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (form.website.value) return;
+      var name = form.name.value.trim(), phone = form.phone.value.trim(), area = form.area.value.trim();
+      if (!name || !phone || !area) { toast('이름, 연락처, 사는 곳은 꼭 적어주세요'); return; }
+      var d = new URLSearchParams();
+      d.append('entry.2058202729', name);
+      d.append('entry.1413101431', phone);
+      d.append('entry.1597722231', area);
+      d.append('entry.1958692996', form.msg.value.trim());
+      var btn = form.querySelector('button[type=submit]');
+      btn.disabled = true; btn.textContent = '보내는 중...';
+      fetch('https://docs.google.com/forms/d/e/1FAIpQLSf8by772proWvilSvuwEY11vINReJtwxwo3_QlaQ0Nx015NZA/formResponse', { method: 'POST', mode: 'no-cors', body: d })
+        .then(function () { form.classList.add('sent'); })
+        .catch(function () { btn.disabled = false; btn.textContent = '남기기'; toast('전송이 안 됐어요. 문자로 보내주세요'); });
     });
     var lb = document.getElementById('lb'), lbImg = lb.querySelector('img');
     document.querySelectorAll('.album img, .cover').forEach(function (img) {
