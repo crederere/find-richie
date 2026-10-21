@@ -174,11 +174,7 @@
 <script>
   (function () {
     var num = '010-2878-6449';
-    var body = encodeURIComponent('안녕하세요, 리치 보고 연락드려요.
-사는 곳:
-집 형태:
-강아지 키워본 경험:
-입양 / 임보(기간):');
+    var body = encodeURIComponent('안녕하세요, 리치 보고 연락드려요.\n사는 곳:\n집 형태:\n강아지 키워본 경험:\n입양 / 임보(기간):');
     var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     document.querySelectorAll('.js-sms').forEach(function (a) { a.href = 'sms:' + num + (isIOS ? '&' : '?') + 'body=' + body; });
     function toast(t) { var el = document.getElementById('toast'); el.textContent = t; el.classList.add('on'); setTimeout(function () { el.classList.remove('on'); }, 1600); }
