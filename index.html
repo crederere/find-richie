@@ -27,6 +27,10 @@
   .date{margin-top:22px;color:#999;font-size:13.5px}
   h1{font-size:27px;line-height:1.35;letter-spacing:-.4px;margin-top:4px}
   .sub{margin-top:6px;color:#555}
+  .top-cta{margin-top:16px}
+  .top-cta .btn{height:54px;font-size:17px}
+  .top-cta p{margin-top:8px;color:#888;font-size:14px;text-align:center}
+  .top-cta p a{color:#555}
   .props{margin-top:18px;border-top:1px solid #eee}
   .props div{display:flex;gap:14px;padding:9px 2px;border-bottom:1px solid #eee;font-size:15.5px}
   .props dt{flex:0 0 58px;color:#999}
@@ -72,6 +76,10 @@
   .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:#2a2a2a;color:#fff;padding:9px 15px;border-radius:8px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:30}
   .toast.on{opacity:1}
 </style>
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '239530102481384');
+</script>
 </head>
 <body>
 <main>
@@ -80,6 +88,10 @@
   <div class="date">10월 22일 수정</div>
   <h1>리치 새 가족 찾아요</h1>
   <p class="sub">사람이랑 강아지 좋아하고 거의 안 짖는 2살 남자아이예요.<br>입양이나 1년 이상 임보 가능하신 분 찾고 있어요.</p>
+  <div class="top-cta">
+    <a class="btn dark js-sms" href="sms:010-2878-6449">문자 보내기 010-2878-6449</a>
+    <p>사는 곳이랑 입양/임보만 적어 보내주셔도 돼요 · <a href="#apply">여기 남기기</a></p>
+  </div>
 
   <dl class="props">
     <div><dt>나이</dt><dd>2살 (추정)</dd></div>
@@ -185,7 +197,7 @@
     var num = '010-2878-6449';
     var body = encodeURIComponent('안녕하세요, 리치 보고 연락드려요.\n사는 곳:\n집 형태:\n강아지 키워본 경험:\n입양 / 임보(기간):');
     var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    document.querySelectorAll('.js-sms').forEach(function (a) { a.href = 'sms:' + num + (isIOS ? '&' : '?') + 'body=' + body; });
+    document.querySelectorAll('.js-sms').forEach(function (a) { a.href = 'sms:' + num + (isIOS ? '&' : '?') + 'body=' + body; a.addEventListener('click', function () { try { fbq('trackCustom', 'RichieSMS'); } catch (e) {} }); });
     function toast(t) { var el = document.getElementById('toast'); el.textContent = t; el.classList.add('on'); setTimeout(function () { el.classList.remove('on'); }, 1600); }
     document.querySelectorAll('.js-copy').forEach(function (b) {
       b.addEventListener('click', function () {
@@ -208,7 +220,7 @@
       var btn = form.querySelector('button[type=submit]');
       btn.disabled = true; btn.textContent = '보내는 중...';
       fetch('https://docs.google.com/forms/d/e/1FAIpQLSf8by772proWvilSvuwEY11vINReJtwxwo3_QlaQ0Nx015NZA/formResponse', { method: 'POST', mode: 'no-cors', body: d })
-        .then(function () { form.classList.add('sent'); })
+        .then(function () { form.classList.add('sent'); try { fbq('trackCustom', 'RichieForm'); } catch (e) {} })
         .catch(function () { btn.disabled = false; btn.textContent = '남기기'; toast('전송이 안 됐어요. 문자로 보내주세요'); });
     });
     var lb = document.getElementById('lb'), lbImg = lb.querySelector('img');
