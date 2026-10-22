@@ -87,6 +87,7 @@
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '239530102481384');
+fbq('track', 'PageView');
 </script>
 </head>
 <body>
@@ -227,7 +228,7 @@ fbq('init', '239530102481384');
     try { if (!sessionStorage.getItem('rv')) { sessionStorage.setItem('rv', '1'); logEv('view'); } } catch (e) { logEv('view'); }
     var body = encodeURIComponent('안녕하세요, 리치 보고 연락드려요.\n사는 곳:\n집 형태:\n강아지 키워본 경험:\n입양 / 임보(기간):');
     var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    document.querySelectorAll('.js-sms').forEach(function (a) { a.href = 'sms:' + num + (isIOS ? '&' : '?') + 'body=' + body; a.addEventListener('click', function () { logEv('sms'); try { fbq('trackCustom', 'RichieSMS'); } catch (e) {} }); });
+    document.querySelectorAll('.js-sms').forEach(function (a) { a.href = 'sms:' + num + (isIOS ? '&' : '?') + 'body=' + body; a.addEventListener('click', function () { logEv('sms'); try { fbq('trackCustom', 'RichieSMS'); fbq('track', 'Lead', { content_name: 'sms' }); } catch (e) {} }); });
     function toast(t) { var el = document.getElementById('toast'); el.textContent = t; el.classList.add('on'); setTimeout(function () { el.classList.remove('on'); }, 1600); }
     document.querySelectorAll('.js-copy').forEach(function (b) {
       b.addEventListener('click', function () {
@@ -253,7 +254,7 @@ fbq('init', '239530102481384');
         var btn = form.querySelector('button[type=submit]');
         btn.disabled = true; btn.textContent = '보내는 중...';
         fetch('https://docs.google.com/forms/d/e/1FAIpQLSf8by772proWvilSvuwEY11vINReJtwxwo3_QlaQ0Nx015NZA/formResponse', { method: 'POST', mode: 'no-cors', body: d })
-          .then(function () { form.classList.add('sent'); logEv('form'); try { fbq('trackCustom', 'RichieForm'); } catch (e) {} })
+          .then(function () { form.classList.add('sent'); logEv('form'); try { fbq('trackCustom', 'RichieForm'); fbq('track', 'Lead', { content_name: 'form' }); } catch (e) {} })
           .catch(function () { btn.disabled = false; btn.textContent = '남기기'; toast('전송이 안 됐어요. 문자로 보내주세요'); });
       });
     }
