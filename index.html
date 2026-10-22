@@ -23,7 +23,7 @@
   body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:#fff;color:#2a2a2a;font-size:16.5px;line-height:1.75;word-break:keep-all}
   main{max-width:620px;margin:0 auto;padding:16px 20px 64px}
   a{color:inherit}
-  .cover{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;object-position:50% 14%;border-radius:8px;background:#f2f0ec;cursor:zoom-in}
+  .cover{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;object-position:50% 50%;border-radius:8px;background:#f2f0ec;cursor:zoom-in}
   .date{margin-top:22px;color:#999;font-size:13.5px}
   h1{font-size:27px;line-height:1.35;letter-spacing:-.4px;margin-top:4px}
   .sub{margin-top:6px;color:#555}
@@ -40,6 +40,8 @@
   ul+p{margin-top:12px}
   .album{display:grid;grid-template-columns:1fr 1fr;gap:14px 10px}
   figure img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:6px;background:#f2f0ec;cursor:zoom-in}
+  figure.wide{grid-column:1/-1}
+  figure.wide img{aspect-ratio:16/10}
   figcaption{margin-top:5px;color:#888;font-size:13.5px;line-height:1.5}
   figcaption b{color:#555;font-weight:600;margin-right:4px}
   .hint{color:#999;font-size:14px;margin:-4px 0 12px}
@@ -73,7 +75,7 @@
 </head>
 <body>
 <main>
-  <img class="cover" src="p/260314_0402.jpg" alt="리치" width="811" height="1440">
+  <img class="cover" src="p/cover_tongue.jpg" alt="혀 내밀고 웃는 리치" width="1080" height="1080">
 
   <div class="date">10월 22일 수정</div>
   <h1>리치 새 가족 찾아요</h1>
@@ -106,6 +108,15 @@
     <li>사진 찍으면 거의 혀 내밀고 웃고 있어요 ㅎㅎ</li>
   </ul>
 
+  <h2>제가 제일 좋아하는 사진</h2>
+  <div class="album">
+    <figure><img src="p/n2_nametag.jpg" alt="이름표 하고 웃는 리치" loading="lazy" width="810" height="1012"><figcaption>이름표 하고 웃는 중</figcaption></figure>
+    <figure><img src="p/n1_slipper.jpg" alt="슬리퍼 옆에 엎드린 리치" loading="lazy" width="810" height="1012"><figcaption>슬리퍼 옆에서</figcaption></figure>
+    <figure><img src="p/n5_badge.jpg" alt="밥그릇 앞에 앉은 리치" loading="lazy" width="810" height="1012"><figcaption>밥그릇 앞에서</figcaption></figure>
+    <figure><img src="p/n3_cushion.jpg" alt="방석에서 쉬는 리치" loading="lazy" width="810" height="1012"><figcaption>방석에서 쉬는 중</figcaption></figure>
+    <figure class="wide"><img src="p/n4_night_wide.jpg" alt="밤 산책 중인 리치" loading="lazy" width="1280" height="800"><figcaption>밤 산책</figcaption></figure>
+  </div>
+
   <h2>영상</h2>
   <div class="videos">
     <figure><video src="v/run_0628.mp4" poster="v/run_0628.jpg" controls playsinline preload="none" width="576" height="1024"></video><figcaption><b>6월</b>잔디밭에서 뛰어오는 중</figcaption></figure>
@@ -121,11 +132,9 @@
     <figure><img src="p/260607_1812.jpg" alt="놀다가 쉬는 리치" loading="lazy" width="563" height="1000"><figcaption><b>6월</b>놀다가 쉬는 중</figcaption></figure>
     <figure><img src="p/260616_0824.jpg" alt="아침 산책 중인 리치" loading="lazy" width="563" height="1000"><figcaption><b>6월</b>아침 산책</figcaption></figure>
     <figure><img src="p/260717_1545.jpg" alt="테이블 밑의 리치" loading="lazy" width="563" height="1000"><figcaption><b>7월</b>밥 먹을 때 테이블 밑에서</figcaption></figure>
-    <figure><img src="p/260726_1428.jpg" alt="집에서 쉬는 리치" loading="lazy" width="563" height="1000"><figcaption><b>7월</b>집에서</figcaption></figure>
     <figure><img src="p/260823_0035.jpg" alt="옷 입은 리치" loading="lazy" width="563" height="1000"><figcaption><b>8월</b>옷 입혀봤어요</figcaption></figure>
     <figure><img src="p/260920_1746.jpg" alt="물 마시는 리치" loading="lazy" width="563" height="1000"><figcaption><b>9월</b>물 마시는 중</figcaption></figure>
     <figure><img src="p/260929_0018.jpg" alt="배를 만져주는 중인 리치" loading="lazy" width="563" height="1000"><figcaption><b>9월</b>배 만져주는 중</figcaption></figure>
-    <figure><img src="p/261001_0311.jpg" alt="자는 리치" loading="lazy" width="563" height="1000"><figcaption><b>10월</b>자는 중</figcaption></figure>
     <figure><img src="p/261011_1745.jpg" alt="공원의 리치" loading="lazy" width="563" height="1000"><figcaption><b>10월</b>공원에서</figcaption></figure>
   </div>
 
