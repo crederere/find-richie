@@ -8,7 +8,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta property="og:type" content="website">
 <meta property="og:title" content="리치 새 가족 찾아요 (2살 남아, 지역 무관)">
-<meta property="og:description" content="입양이나 1년 이상 임보 가능하신 분 찾아요. 10월 25일까지.">
+<meta property="og:description" content="입양이나 1년 이상 임보 가능하신 분 찾아요. 10월 26일까지.">
 <meta property="og:image" content="https://crederere.github.io/find-richie/p/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -66,6 +66,9 @@
   .apply label span{color:#aaa}
   .apply input[type=text],.apply input[type=tel],.apply textarea{display:block;width:100%;margin-top:5px;padding:11px 12px;border:1px solid #d9d9d9;border-radius:8px;font:inherit;font-size:16px;color:#2a2a2a;background:#fff}
   .apply textarea{resize:vertical;min-height:64px;line-height:1.6}
+  .apply select{display:block;width:100%;margin-top:5px;padding:11px 12px;border:1px solid #d9d9d9;border-radius:8px;font:inherit;font-size:16px;color:#2a2a2a;background:#fff;-webkit-appearance:none;appearance:none}
+  .apply select:focus{outline:none;border-color:#2a2a2a}
+  .apply .photo{margin-top:12px;color:#777;font-size:14.5px}
   .apply input:focus,.apply textarea:focus{outline:none;border-color:#2a2a2a}
   .apply fieldset{border:0;margin-top:12px}
   .apply legend{font-size:14.5px;color:#555}
@@ -110,7 +113,7 @@ fbq('track', 'PageView');
     <div><dt>성별</dt><dd>남아, 중성화 완료</dd></div>
     <div><dt>몸무게</dt><dd>15kg 정도</dd></div>
     <div><dt>지역</dt><dd>상관없어요 (지금은 서울 동작구, 데려다 드려요)</dd></div>
-    <div><dt>기한</dt><dd>10월 25일까지</dd></div>
+    <div><dt>기한</dt><dd>10월 26일까지</dd></div>
     <div><dt>연락</dt><dd><a class="js-sms" href="sms:010-2878-6449">010-2878-6449</a> 문자, 또는 <a href="#apply">번호 남기기</a></dd></div>
   </dl>
 
@@ -199,8 +202,12 @@ fbq('track', 'PageView');
           <label><input type="radio" name="kind" value="1년 이상 임보">1년 이상 임보</label>
         </div>
       </fieldset>
+      <label>산책은 일주일에 몇 번 가능하세요?<select name="walk"><option value="">골라주세요</option><option>매일 2번 이상</option><option>매일 1번</option><option>일주일에 3~6번</option><option>일주일에 1~2번</option></select></label>
+      <label>같이 사는 분<input type="text" name="family" maxlength="60" placeholder="예: 혼자, 부모님, 배우자, 아이 등"></label>
+      <label>하루에 집 비우는 시간<select name="away"><option value="">골라주세요</option><option>거의 없음</option><option>4시간 이하</option><option>4~8시간</option><option>8시간 이상</option></select></label>
       <label>사는 곳 <span>(선택)</span><input type="text" name="area" maxlength="40" placeholder="예: 서울 관악구"></label>
       <label>하고 싶은 말 <span>(선택)</span><textarea name="msg" maxlength="1000" rows="2" placeholder="집 형태, 강아지 키워본 경험 같은 거요."></textarea></label>
+      <p class="photo">리치가 지낼 곳 사진은 010-2878-6449로 문자 주시면 돼요. (선택)</p>
       <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
       <button class="btn dark" type="submit">남기기</button>
     </div>
@@ -246,10 +253,16 @@ fbq('track', 'PageView');
         if (!name || !phone) { toast('이름이랑 번호는 꼭 적어주세요'); return; }
         if (phone.replace(/\D/g, '').length < 9) { toast('번호를 다시 확인해 주세요'); return; }
         if (!kind) { toast('입양인지 임보인지 골라주세요'); return; }
+        if (!f('walk')) { toast('산책은 일주일에 몇 번 가능한지 골라주세요'); return; }
+        if (!f('family')) { toast('같이 사는 분을 적어주세요'); return; }
+        if (!f('away')) { toast('하루에 집 비우는 시간을 골라주세요'); return; }
         var d = new URLSearchParams();
         d.append('entry.2058202729', name);
         d.append('entry.1413101431', phone);
         d.append('entry.1597722231', f('area') || '안 적음');
+        d.append('entry.1942268220', f('walk'));
+        d.append('entry.1471082665', f('family'));
+        d.append('entry.316600393', f('away'));
         d.append('entry.1958692996', '[' + kind + '] ' + f('msg'));
         var btn = form.querySelector('button[type=submit]');
         btn.disabled = true; btn.textContent = '보내는 중...';
